@@ -1,0 +1,22 @@
+ALGORITHM Task3
+VAR
+    arr1 : ARRAY_OF INTEGER[100];
+    arr2 : ARRAY_OF INTEGER[100];
+    i,j:INTEGER;
+    sum:INTEGER:=0;
+    found:BOOLEAN;
+BEGIN
+    FOR i FROM 0 TO arr1.length-1 STEP 1  DO
+        found:=FALSE;
+        FOR j FROM 0 TO arr2.length-1 STEP 1  DO
+            IF (arr1[i] = arr2[j]) THEN
+                found:=TRUE;
+                BREAK;
+            END_IF
+        END_FOR
+        IF (found = TRUE) THEN
+            sum := sum + 2*arr1[i]
+        END_IF
+    END_FOR
+    Write(sum)
+END
