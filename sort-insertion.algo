@@ -1,0 +1,22 @@
+PROCEDURE permut(VAR x,VAR y)
+VAR
+    temp:INTEGER;
+BEGIN
+    temp:=x;
+    x:=y;
+    y:=temp;
+END
+
+ALGORITHM sort
+VAR
+    arr : ARRAY_OF INTEGER[100];
+    i,j:INTEGER
+BEGIN
+    FOR i FROM 0 TO arr.length-1 STEP 1  DO
+        j:=i
+        WHILE (j>0 AND arr[j]<arr[j-1]) DO
+        permut(arr[j-1],arr[j])
+        j:=j-1
+        END_WHILE
+    END_FOR
+END
