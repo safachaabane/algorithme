@@ -32,6 +32,7 @@ BEGIN
     END_FOR
     Write(sum)
 END
+/******************************************/
 ALGORITHM Task3
 VAR
     arr1 : ARRAY_OF INTEGER[100];
