@@ -1,57 +1,64 @@
-ALGORITHM task2
+PROCEDURE dot_product(v1,v2 : ARRAY_OF INTEGER, VAR ps:INTEGER)
 VAR
-    arr1 : ARRAY_OF INTEGER[100];
-    arr2 : ARRAY_OF INTEGER[100];
-    i,j:INTEGER;
-    found:BOOLEAN;
-    sum:INTEGER:=0;
+    i,n,m:INTEGER;
 BEGIN
-    FOR i FROM 0 TO arr1.length-1 STEP 1  DO
-    found:=FALSE;
-        FOR j FROM 0 TO arr2.length-1 STEP 1  DO
-            IF (arr1[i] = arr2[j]) THEN
-                found:=TRUE;
-                BREAK;
-            END_IF
-        END_FOR
-        IF (found =FALSE) THEN
-            sum := sum + arr1[i]
-        END_IF
+    n:=v1.length-1;
+    m:=v2.length-1;
+    ps:=0;
+    IF (n <> m) THEN
+        Write("You can't calculate the dot product of 2 vectors have different length")
+        ps:=NaN
+    END_IF
+    FOR i FROM 0 TO n STEP 1  DO
+        ps := ps + v1[i] * v2[i]
     END_FOR
-    FOR i FROM 0 TO arr2.length-1 STEP 1  DO
-    found:=FALSE;
-        FOR j FROM 0 TO arr1.length-1 STEP 1  DO
-            IF (arr2[i] = arr1[j]) THEN
-                found:=TRUE;
-                BREAK;
-            END_IF
-        END_FOR
-        IF (found =FALSE) THEN
-            sum := sum + arr2[i]
-        END_IF
-    END_FOR
-    Write(sum)
 END
-/******************************************/
-ALGORITHM Task3
+// v = [[1,2,3],[2,5,0],[1,2,6],[2,8,9]]
+ALGORITHM orth_vectors
 VAR
-    arr1 : ARRAY_OF INTEGER[100];
-    arr2 : ARRAY_OF INTEGER[100];
+    v : ARRAY_OF ARRAY;
     i,j:INTEGER;
-    sum:INTEGER:=0;
-    found:BOOLEAN;
 BEGIN
-    FOR i FROM 0 TO arr1.length-1 STEP 1  DO
-        found:=FALSE;
-        FOR j FROM 0 TO arr2.length-1 STEP 1  DO
-            IF (arr1[i] = arr2[j]) THEN
-                found:=TRUE;
-                BREAK;
+    FOR i FROM 0 TO v.length-1 STEP 1  DO
+        FOR j FROM i+1 TO v.length-1 STEP 1  DO
+            dot_product(v[i],v[j],ps)
+            IF (ps = 0 ) THEN
+                Write(v[i], " and " , v[j]," are orthogonal")
             END_IF
         END_FOR
-        IF (found = TRUE) THEN
-            sum := sum + 2*arr1[i]
-        END_IF
     END_FOR
-    Write(sum)
+END
+
+//Function
+FUNCTION dot_product(v1,v2 : ARRAY_OF INTEGER) : INTEGER
+VAR
+    i,j,n,m,ps:INTEGER
+BEGIN
+    n:=v1.length-1;
+    m:=v2.length-1;
+    ps:=0;
+    IF (n <> m) THEN
+        Write("You can't calculate the dot product of 2 vectors have different length")
+        ps:=NaN
+    END_IF
+    FOR i FROM 0 TO n STEP 1  DO
+        ps := ps + v1[i] * v2[i]
+    END_FOR
+    RETURN ps ;
+END
+
+
+ALGORITHM orth_vectors
+VAR
+    v : ARRAY_OF ARRAY;
+    i,j,ps:INTEGER;
+BEGIN
+    FOR i FROM 0 TO v.length-1 STEP 1  DO
+        FOR j FROM i+1 TO v.length-1 STEP 1  DO
+            ps:=dot_product(v[i],v[j])
+            IF (ps = 0 ) THEN
+                Write(v[i], " and " , v[j]," are orthogonal")
+            END_IF
+        END_FOR
+    END_FOR
 END
